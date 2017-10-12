@@ -1,25 +1,32 @@
 package edu.jhuapl.sbmt.config;
 
 import edu.jhuapl.saavtk.config.Configurable;
+import edu.jhuapl.saavtk.config.Entry;
 import edu.jhuapl.saavtk.config.ExtensibleTypedLookup;
 import edu.jhuapl.saavtk.config.FixedTypedLookup;
 import edu.jhuapl.saavtk.config.Key;
-import edu.jhuapl.sbmt.imaging.instruments.ImagingInstrumentConfiguration;
 
 public class SBMTBodyConfiguration extends ExtensibleTypedLookup implements Configurable
 {
-    public static final Key<ImagingInstrumentConfiguration> IMAGING_INSTRUMENT_CONFIG = Key.of("Imaging instrument configuration");
+    // Required keys.
+    public static final Key<String> BODY_NAME = Key.of("Body name");
+    public static final Key<String> BODY_TYPE = Key.of("Body type");
+    public static final Key<String> BODY_POPULATION = Key.of("Body population");
 
     private static final Key<FixedTypedLookup.Builder> BUILDER_KEY = Key.of("SBMTBodyConfiguration builder");
 
-    public static Builder<SBMTBodyConfiguration> builder() {
-        FixedTypedLookup.Builder fixedBuilder = FixedTypedLookup.builder(BUILDER_KEY);
+    public static Builder<SBMTBodyConfiguration> builder(String bodyName, String bodyType, String bodyPopulation) {
+        final FixedTypedLookup.Builder fixedBuilder = FixedTypedLookup.builder(BUILDER_KEY);
+
+        fixedBuilder.put(Entry.of(BODY_NAME, bodyName));
+        fixedBuilder.put(Entry.of(BODY_TYPE, bodyType));
+        fixedBuilder.put(Entry.of(BODY_POPULATION, bodyPopulation));
+
         return new Builder<SBMTBodyConfiguration>(fixedBuilder) {
             @Override
             public SBMTBodyConfiguration build()
             {
-                // TODO Auto-generated method stub
-                return null;
+                return new SBMTBodyConfiguration(fixedBuilder);
             }
         };
     }
