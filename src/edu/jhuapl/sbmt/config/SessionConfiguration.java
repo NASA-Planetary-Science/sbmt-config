@@ -13,18 +13,20 @@ public class SessionConfiguration extends ExtensibleTypedLookup
     // Required keys.
     public static final Key<SBMTBodyConfiguration> BODY_CONFIG = Key.of("Body configuration");
     public static final Key<ShapeModelConfiguration> SHAPE_MODEL_CONFIG = Key.of("Shape model configuration");
+    public static final Key<SBMTFileLocator> FILE_LOCATOR = Key.of("File locator");
 
     // Optional keys.
     public static final Key<ImagingInstrumentConfiguration> IMAGING_INSTRUMENT_CONFIG = Key.of("Imaging instrument configuration");
 
     private static final Key<FixedTypedLookup.Builder> BUILDER_KEY = Key.of("SessionConfiguration builder");
 
-    public static final Builder<SessionConfiguration> builder(SBMTBodyConfiguration bodyConfig, ShapeModelConfiguration shapeConfig)
+    public static final Builder<SessionConfiguration> builder(SBMTBodyConfiguration bodyConfig, ShapeModelConfiguration shapeConfig, SBMTFileLocator fileLocator)
     {
         final FixedTypedLookup.Builder fixedBuilder = FixedTypedLookup.builder(BUILDER_KEY);
 
         fixedBuilder.put(Entry.of(BODY_CONFIG, bodyConfig));
         fixedBuilder.put(Entry.of(SHAPE_MODEL_CONFIG, shapeConfig));
+        fixedBuilder.put(Entry.of(FILE_LOCATOR, fileLocator));
 
         return new Builder<SessionConfiguration>(fixedBuilder) {
             @Override
