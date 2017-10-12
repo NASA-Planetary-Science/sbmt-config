@@ -10,7 +10,7 @@ public class SBMTFileLocators
 {
     public static SBMTFileLocator of(SBMTBodyConfiguration bodyConfig, ShapeModelConfiguration modelConfig, Instrument instrument, String imageFileSuffix, String infoFileSuffix, String sumFileSuffix, String galleryFileSuffix)
     {
-        String lcInstrument = instrument.toString().toLowerCase();
+        String lcInstrument = Instrument.IMAGING_DATA.equals(instrument) ? "imaging" : instrument.toString().toLowerCase();
 
         FileLocator topPathLocator = replaceServerPath(bodyConfig, modelConfig, lcInstrument);
         FileLocator imageFileLocator = FileLocators.concatenate(replaceServerPath(bodyConfig, modelConfig, lcInstrument + "/images"), FileLocators.replaceSuffix(imageFileSuffix));
