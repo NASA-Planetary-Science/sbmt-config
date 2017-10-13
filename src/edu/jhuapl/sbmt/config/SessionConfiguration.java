@@ -27,7 +27,7 @@ public class SessionConfiguration extends ExtensibleTypedLookup
 
         return new Builder<SessionConfiguration>(fixedBuilder) {
             @Override
-            public SessionConfiguration build()
+            public SessionConfiguration doBuild()
             {
                 return new SessionConfiguration(fixedBuilder);
             }

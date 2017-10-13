@@ -21,7 +21,7 @@ public class SBMTBodyConfiguration extends ExtensibleTypedLookup implements Conf
 
         return new Builder<SBMTBodyConfiguration>(fixedBuilder) {
             @Override
-            public SBMTBodyConfiguration build()
+            public SBMTBodyConfiguration doBuild()
             {
                 return new SBMTBodyConfiguration(fixedBuilder);
             }

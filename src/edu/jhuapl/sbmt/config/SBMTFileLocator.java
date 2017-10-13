@@ -27,7 +27,7 @@ public class SBMTFileLocator extends ExtensibleTypedLookup
 
         return new Builder<SBMTFileLocator>(fixedBuilder) {
             @Override
-            public SBMTFileLocator build()
+            public SBMTFileLocator doBuild()
             {
                 if (!containsKey(INFO_FILE) && !containsKey(SUM_FILE))
                 {

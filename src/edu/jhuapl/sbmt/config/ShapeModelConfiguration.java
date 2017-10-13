@@ -19,7 +19,7 @@ public class ShapeModelConfiguration extends ExtensibleTypedLookup implements Co
         fixedBuilder.put(DATA_USED, dataUsed);
         return new Builder<ShapeModelConfiguration>(fixedBuilder) {
             @Override
-            public ShapeModelConfiguration build()
+            public ShapeModelConfiguration doBuild()
             {
                 return new ShapeModelConfiguration(fixedBuilder);
             }
