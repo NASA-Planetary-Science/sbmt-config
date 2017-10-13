@@ -1,7 +1,6 @@
 package edu.jhuapl.sbmt.config;
 
 import edu.jhuapl.saavtk.config.Configurable;
-import edu.jhuapl.saavtk.config.Entry;
 import edu.jhuapl.saavtk.config.ExtensibleTypedLookup;
 import edu.jhuapl.saavtk.config.FixedTypedLookup;
 import edu.jhuapl.saavtk.config.Key;
@@ -22,9 +21,9 @@ public class SessionConfiguration extends ExtensibleTypedLookup
     {
         final FixedTypedLookup.Builder fixedBuilder = FixedTypedLookup.builder();
 
-        fixedBuilder.put(Entry.of(BODY_CONFIG, bodyConfig));
-        fixedBuilder.put(Entry.of(SHAPE_MODEL_CONFIG, shapeConfig));
-        fixedBuilder.put(Entry.of(FILE_LOCATOR, fileLocator));
+        fixedBuilder.put(BODY_CONFIG, bodyConfig);
+        fixedBuilder.put(SHAPE_MODEL_CONFIG, shapeConfig);
+        fixedBuilder.put(FILE_LOCATOR, fileLocator);
 
         return new Builder<SessionConfiguration>(fixedBuilder) {
             @Override

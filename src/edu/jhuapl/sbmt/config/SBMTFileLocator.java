@@ -1,6 +1,5 @@
 package edu.jhuapl.sbmt.config;
 
-import edu.jhuapl.saavtk.config.Entry;
 import edu.jhuapl.saavtk.config.ExtensibleTypedLookup;
 import edu.jhuapl.saavtk.config.FixedTypedLookup;
 import edu.jhuapl.saavtk.config.Key;
@@ -23,8 +22,8 @@ public class SBMTFileLocator extends ExtensibleTypedLookup
         final FixedTypedLookup.Builder fixedBuilder = FixedTypedLookup.builder();
 
         // Required keys.
-        fixedBuilder.put(Entry.of(TOP_PATH, topPathLocator));
-        fixedBuilder.put(Entry.of(IMAGE_FILE, imageFileLocator));
+        fixedBuilder.put(TOP_PATH, topPathLocator);
+        fixedBuilder.put(IMAGE_FILE, imageFileLocator);
 
         return new Builder<SBMTFileLocator>(fixedBuilder) {
             @Override

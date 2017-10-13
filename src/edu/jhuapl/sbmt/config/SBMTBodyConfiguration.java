@@ -1,7 +1,6 @@
 package edu.jhuapl.sbmt.config;
 
 import edu.jhuapl.saavtk.config.Configurable;
-import edu.jhuapl.saavtk.config.Entry;
 import edu.jhuapl.saavtk.config.ExtensibleTypedLookup;
 import edu.jhuapl.saavtk.config.FixedTypedLookup;
 import edu.jhuapl.saavtk.config.Key;
@@ -16,9 +15,9 @@ public class SBMTBodyConfiguration extends ExtensibleTypedLookup implements Conf
     public static Builder<SBMTBodyConfiguration> builder(String bodyName, String bodyType, String bodyPopulation) {
         final FixedTypedLookup.Builder fixedBuilder = FixedTypedLookup.builder();
 
-        fixedBuilder.put(Entry.of(BODY_NAME, bodyName));
-        fixedBuilder.put(Entry.of(BODY_TYPE, bodyType));
-        fixedBuilder.put(Entry.of(BODY_POPULATION, bodyPopulation));
+        fixedBuilder.put(BODY_NAME, bodyName);
+        fixedBuilder.put(BODY_TYPE, bodyType);
+        fixedBuilder.put(BODY_POPULATION, bodyPopulation);
 
         return new Builder<SBMTBodyConfiguration>(fixedBuilder) {
             @Override

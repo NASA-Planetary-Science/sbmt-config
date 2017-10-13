@@ -1,6 +1,5 @@
 package edu.jhuapl.sbmt.config;
 
-import edu.jhuapl.saavtk.config.Entry;
 import edu.jhuapl.saavtk.util.SafePaths;
 import edu.jhuapl.saavtk.util.file.FileLocator;
 import edu.jhuapl.saavtk.util.file.FileLocators;
@@ -19,9 +18,9 @@ public class SBMTFileLocators
         FileLocator galleryFileLocator = FileLocators.concatenate(replaceServerPath(bodyConfig, modelConfig, lcInstrument + "/gallery"), FileLocators.replaceSuffix(galleryFileSuffix));
 
         return SBMTFileLocator.builder(topPathLocator, imageFileLocator)
-                .put(Entry.of(SBMTFileLocator.INFO_FILE, infoFileLocator))
-                .put(Entry.of(SBMTFileLocator.SUM_FILE, sumFileLocator))
-                .put(Entry.of(SBMTFileLocator.GALLERY_FILE, galleryFileLocator))
+                .put(SBMTFileLocator.INFO_FILE, infoFileLocator)
+                .put(SBMTFileLocator.SUM_FILE, sumFileLocator)
+                .put(SBMTFileLocator.GALLERY_FILE, galleryFileLocator)
                 .build();
     }
 
