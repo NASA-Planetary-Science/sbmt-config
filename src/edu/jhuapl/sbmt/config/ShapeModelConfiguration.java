@@ -13,11 +13,9 @@ public class ShapeModelConfiguration extends ExtensibleTypedLookup implements Co
     public static final Key<String> AUTHOR = Key.of("Author");
     public static final Key<ShapeModelDataUsed> DATA_USED = Key.of("Data used to create shape model");
 
-    private static final Key<FixedTypedLookup.Builder> BUILDER_KEY = Key.of("ShapeModelConfiguration builder");
-
     public static Builder<ShapeModelConfiguration> builder(String author, ShapeModelDataUsed dataUsed)
     {
-        final FixedTypedLookup.Builder fixedBuilder = FixedTypedLookup.builder(BUILDER_KEY);
+        final FixedTypedLookup.Builder fixedBuilder = FixedTypedLookup.builder();
         fixedBuilder.put(Entry.of(AUTHOR, author));
         fixedBuilder.put(Entry.of(DATA_USED, dataUsed));
         return new Builder<ShapeModelConfiguration>(fixedBuilder) {
@@ -30,7 +28,7 @@ public class ShapeModelConfiguration extends ExtensibleTypedLookup implements Co
     }
     protected ShapeModelConfiguration(FixedTypedLookup.Builder builder)
     {
-        super(BUILDER_KEY, builder);
+        super(builder);
     }
 
 }

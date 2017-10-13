@@ -17,12 +17,10 @@ public class SBMTFileLocator extends ExtensibleTypedLookup
     public static final Key<FileLocator> SUM_FILE = Key.of("Sum file base name");
     public static final Key<FileLocator> GALLERY_FILE = Key.of("Gallery file base name");
 
-    private static final Key<FixedTypedLookup.Builder> BUILDER_KEY = Key.of("ImageFileLocator builder");
-
     public static ExtensibleTypedLookup.Builder<SBMTFileLocator> builder(FileLocator topPathLocator, FileLocator imageFileLocator) {
         if (topPathLocator == null || imageFileLocator == null) throw new NullPointerException();
 
-        final FixedTypedLookup.Builder fixedBuilder = FixedTypedLookup.builder(BUILDER_KEY);
+        final FixedTypedLookup.Builder fixedBuilder = FixedTypedLookup.builder();
 
         // Required keys.
         fixedBuilder.put(Entry.of(TOP_PATH, topPathLocator));
@@ -43,6 +41,6 @@ public class SBMTFileLocator extends ExtensibleTypedLookup
 
     protected SBMTFileLocator(FixedTypedLookup.Builder builder)
     {
-        super(BUILDER_KEY, builder);
+        super(builder);
     }
 }

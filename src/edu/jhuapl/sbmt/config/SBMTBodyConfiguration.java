@@ -13,10 +13,8 @@ public class SBMTBodyConfiguration extends ExtensibleTypedLookup implements Conf
     public static final Key<String> BODY_TYPE = Key.of("Body type");
     public static final Key<String> BODY_POPULATION = Key.of("Body population");
 
-    private static final Key<FixedTypedLookup.Builder> BUILDER_KEY = Key.of("SBMTBodyConfiguration builder");
-
     public static Builder<SBMTBodyConfiguration> builder(String bodyName, String bodyType, String bodyPopulation) {
-        final FixedTypedLookup.Builder fixedBuilder = FixedTypedLookup.builder(BUILDER_KEY);
+        final FixedTypedLookup.Builder fixedBuilder = FixedTypedLookup.builder();
 
         fixedBuilder.put(Entry.of(BODY_NAME, bodyName));
         fixedBuilder.put(Entry.of(BODY_TYPE, bodyType));
@@ -33,7 +31,7 @@ public class SBMTBodyConfiguration extends ExtensibleTypedLookup implements Conf
 
     protected SBMTBodyConfiguration(FixedTypedLookup.Builder builder)
     {
-        super(BUILDER_KEY, builder);
+        super(builder);
     }
 
 }
