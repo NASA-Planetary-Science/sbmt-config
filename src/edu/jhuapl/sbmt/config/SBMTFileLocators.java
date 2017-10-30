@@ -3,7 +3,7 @@ package edu.jhuapl.sbmt.config;
 import edu.jhuapl.saavtk.util.SafePaths;
 import edu.jhuapl.saavtk.util.file.FileLocator;
 import edu.jhuapl.saavtk.util.file.FileLocators;
-import edu.jhuapl.sbmt.imaging.instruments.Instrument;
+import edu.jhuapl.sbmt.model.image.Instrument;
 
 public class SBMTFileLocators
 {
