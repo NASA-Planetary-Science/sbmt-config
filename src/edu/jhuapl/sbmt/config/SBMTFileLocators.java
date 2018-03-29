@@ -48,6 +48,6 @@ public class SBMTFileLocators
     }
 
     private static String serverPath(SBMTBodyConfiguration bodyConfig, ShapeModelConfiguration modelConfig) {
-        return SafePaths.getString(bodyConfig.get(SBMTBodyConfiguration.BODY_NAME), modelConfig.get(ShapeModelConfiguration.AUTHOR)).toLowerCase();
+        return SafePaths.getString("/" + bodyConfig.get(SBMTBodyConfiguration.BODY_NAME), modelConfig.get(ShapeModelConfiguration.AUTHOR)).toLowerCase();
     }
 }
