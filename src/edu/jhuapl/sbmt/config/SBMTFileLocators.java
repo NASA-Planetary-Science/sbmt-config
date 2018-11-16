@@ -1,12 +1,14 @@
 package edu.jhuapl.sbmt.config;
 
-import edu.jhuapl.saavtk.util.SafePaths;
+import edu.jhuapl.saavtk.util.SafeURLPaths;
 import edu.jhuapl.saavtk.util.file.FileLocator;
 import edu.jhuapl.saavtk.util.file.FileLocators;
 import edu.jhuapl.sbmt.model.image.Instrument;
 
 public class SBMTFileLocators
 {
+    private static final SafeURLPaths SAFE_URL_PATHS = SafeURLPaths.instance();
+
     public static SBMTFileLocator of(SBMTBodyConfiguration bodyConfig, ShapeModelConfiguration modelConfig, Instrument instrument, String imageFileSuffix, String infoFileSuffix, String sumFileSuffix, String galleryFileSuffix)
     {
         String lcInstrument = Instrument.IMAGING_DATA.equals(instrument) ? "imaging" : instrument.toString().toLowerCase();
@@ -31,7 +33,7 @@ public class SBMTFileLocators
             {
                 String serverPath = serverPath(bodyConfig, modelConfig);
                 name = name.replaceAll(".*[/\\\\]", "");
-                return SafePaths.getString(serverPath, subPath, name);
+                return SAFE_URL_PATHS.getString(serverPath, subPath, name);
             }
         };
     }
@@ -42,12 +44,12 @@ public class SBMTFileLocators
             public String getLocation(String name)
             {
                 String serverPath = serverPath(bodyConfig, modelConfig);
-                return SafePaths.getString(serverPath, subPath, name);
+                return SAFE_URL_PATHS.getString(serverPath, subPath, name);
             }
         };
     }
 
     private static String serverPath(SBMTBodyConfiguration bodyConfig, ShapeModelConfiguration modelConfig) {
-        return SafePaths.getString("/" + bodyConfig.get(SBMTBodyConfiguration.BODY_NAME), modelConfig.get(ShapeModelConfiguration.AUTHOR)).toLowerCase();
+        return SAFE_URL_PATHS.getString("/" + bodyConfig.get(SBMTBodyConfiguration.BODY_NAME), modelConfig.get(ShapeModelConfiguration.AUTHOR)).toLowerCase();
     }
 }
