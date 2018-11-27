@@ -1,6 +1,6 @@
 package edu.jhuapl.sbmt.config;
 
-import edu.jhuapl.saavtk.util.SafePaths;
+import edu.jhuapl.saavtk.util.SafeURLPaths;
 import edu.jhuapl.saavtk.util.file.FileLocator;
 import edu.jhuapl.saavtk.util.file.FileLocators;
 import edu.jhuapl.sbmt.model.image.Instrument;
@@ -31,7 +31,7 @@ public class SBMTFileLocators
             {
                 String serverPath = serverPath(bodyConfig, modelConfig);
                 name = name.replaceAll(".*[/\\\\]", "");
-                return SafePaths.getString(serverPath, subPath, name);
+                return SafeURLPaths.instance().getString(serverPath, subPath, name);
             }
         };
     }
@@ -42,12 +42,12 @@ public class SBMTFileLocators
             public String getLocation(String name)
             {
                 String serverPath = serverPath(bodyConfig, modelConfig);
-                return SafePaths.getString(serverPath, subPath, name);
+                return SafeURLPaths.instance().getString(serverPath, subPath, name);
             }
         };
     }
 
     private static String serverPath(SBMTBodyConfiguration bodyConfig, ShapeModelConfiguration modelConfig) {
-        return SafePaths.getString("/" + bodyConfig.get(SBMTBodyConfiguration.BODY_NAME), modelConfig.get(ShapeModelConfiguration.AUTHOR)).toLowerCase();
+        return SafeURLPaths.instance().getString("/" + bodyConfig.get(SBMTBodyConfiguration.BODY_NAME), modelConfig.get(ShapeModelConfiguration.AUTHOR)).toLowerCase();
     }
 }
