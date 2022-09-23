@@ -23,7 +23,7 @@ public class BasicConfigInfo implements MetadataManager
     //      pipeline->rawdata->generic->runDataProcessing.sh
     // TO MATCH!!!!!!!!!!!!!!!!!!!
     // *******************************************************************************
-    private static final String configInfoVersion = "9.1"; // READ THE COMMENT ABOVE.
+    private static final String configInfoVersion = "9.2"; // READ THE COMMENT ABOVE.
     // *******************************************************************************
 
     public static String getConfigInfoVersion()
