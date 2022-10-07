@@ -4,7 +4,6 @@ import edu.jhuapl.saavtk.config.Configurable;
 import edu.jhuapl.saavtk.config.ExtensibleTypedLookup;
 import edu.jhuapl.saavtk.config.FixedTypedLookup;
 import edu.jhuapl.saavtk.config.Key;
-import edu.jhuapl.sbmt.client.ShapeModelDataUsed;
 
 public class ShapeModelConfiguration extends ExtensibleTypedLookup implements Configurable
 {

@@ -4,7 +4,7 @@ import edu.jhuapl.saavtk.config.Configurable;
 import edu.jhuapl.saavtk.config.ExtensibleTypedLookup;
 import edu.jhuapl.saavtk.config.FixedTypedLookup;
 import edu.jhuapl.saavtk.config.Key;
-import edu.jhuapl.sbmt.imaging.instruments.ImagingInstrumentConfiguration;
+import edu.jhuapl.sbmt.core.image.ImagingInstrumentConfiguration;
 
 public class SessionConfiguration extends ExtensibleTypedLookup
         implements Configurable
