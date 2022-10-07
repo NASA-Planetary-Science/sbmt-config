@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import edu.jhuapl.saavtk.model.ShapeModelBody;
 import edu.jhuapl.saavtk.model.ShapeModelType;
-import edu.jhuapl.sbmt.client.SbmtMultiMissionTool;
+import edu.jhuapl.sbmt.client2.SbmtMultiMissionTool;
 import edu.jhuapl.sbmt.common.client.BodyViewConfig;
 import edu.jhuapl.sbmt.common.client.Mission;
 import edu.jhuapl.sbmt.common.client.SmallBodyViewConfig;
@@ -33,7 +33,7 @@ public class BasicConfigInfo implements MetadataManager
 
     public static String getConfigPathPrefix(boolean publishedDataOnly)
     {
-        return (publishedDataOnly ? "published/" : "proprietary/") + "allBodies-" + configInfoVersion + "-redmine-2356";
+        return (publishedDataOnly ? "published/" : "proprietary/") + "allBodies-" + configInfoVersion + "-redmine-1215";
     }
 
     private static final Mission[] EmptyMissionArray = new Mission[0];
@@ -102,10 +102,28 @@ public class BasicConfigInfo implements MetadataManager
             // modelVersion will add nothing.
             String modelVersion = config.version != null ? config.version.replaceAll(" ", "_") : "";
 
-            this.configURL = "/" + getConfigPathPrefix(publishedDataOnly) + ((SmallBodyViewConfig) config).rootDirOnServer + //
+            if (!config.hasSystemBodies())
+            	this.configURL = "/" + getConfigPathPrefix(publishedDataOnly) + ((SmallBodyViewConfig) config).rootDirOnServer + //
                     "/" + config.author + "_" + //
                     config.body.toString().replaceAll(" ", "_") + modelVersion + //
                     "_v" + getConfigInfoVersion() + ".json";
+            else
+            {
+            	String bodyName = config.getBody().toString();
+            	bodyName = bodyName.replaceAll(" ", "_");
+            	bodyName = bodyName.replaceAll("\\(", "_");
+            	bodyName = bodyName.replaceAll("\\)", "_");
+            	String centerNameReplacement = "-system_" + bodyName.toLowerCase() + "_center/";
+            	String systemRoot = ((SmallBodyViewConfig) config).rootDirOnServer.substring(1).replaceFirst("/", centerNameReplacement);
+            	systemRoot = systemRoot.replaceAll("\\(", "_");
+            	systemRoot = systemRoot.replaceAll("\\)", "");
+            	this.configURL = "/" + getConfigPathPrefix(publishedDataOnly) + "/" + systemRoot + //
+	                "/" + config.author + "_" + //
+	                bodyName + modelVersion + "_System_" + bodyName.toLowerCase() + "center" + //
+	                "_v" + getConfigInfoVersion() + ".json";
+            	this.configURL = this.configURL.replaceAll("\\(", "");
+            	this.configURL = this.configURL.replaceAll("\\)", "");
+            }
 		}
 	}
 
