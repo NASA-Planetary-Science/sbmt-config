@@ -41,7 +41,7 @@ public class BasicConfigInfo implements MetadataManager
     ShapeModelPopulation population;
     ShapeModelBody system;
 	String shapeModelName;
-	String uniqueName;
+	String uniqueName; 
 	ShapeModelType author;
 	BodyType type;
 	ShapeModelBody body;
@@ -76,7 +76,7 @@ public class BasicConfigInfo implements MetadataManager
 			for (Mission presentMission : presentInVersion)
 			{
 				//allow the body if the "present in Mission" value equals the tool's preset mission value OR if the tool's present mission value is the apl internal nightly
-				if ((presentMission == SbmtMultiMissionTool.getMission()) || (SbmtMultiMissionTool.getMission() == Mission.APL_INTERNAL_NIGHTLY))
+				if ((presentMission == edu.jhuapl.sbmt.client2.SbmtMultiMissionTool.getMission()) || (edu.jhuapl.sbmt.client2.SbmtMultiMissionTool.getMission() == Mission.APL_INTERNAL_NIGHTLY))
 				{
 					enabled = true;
 					break;
@@ -88,7 +88,7 @@ public class BasicConfigInfo implements MetadataManager
             {
                 for (Mission defaultMission : defaultFor)
                 {
-                    if (defaultMission == SbmtMultiMissionTool.getMission())
+                    if (defaultMission == edu.jhuapl.sbmt.client2.SbmtMultiMissionTool.getMission())
                     {
                         SmallBodyViewConfig.setDefaultModelName(uniqueName);
                         break;
@@ -216,7 +216,7 @@ public class BasicConfigInfo implements MetadataManager
 		{
 			for (Mission presentMission : presentInVersion)
 			{
-				if ((presentMission == SbmtMultiMissionTool.getMission()) || (SbmtMultiMissionTool.getMission() == Mission.APL_INTERNAL_NIGHTLY))
+				if ((presentMission == edu.jhuapl.sbmt.client2.SbmtMultiMissionTool.getMission()) || (edu.jhuapl.sbmt.client2.SbmtMultiMissionTool.getMission() == Mission.APL_INTERNAL_NIGHTLY))
 				{
 					enabled = true;
 					break;
@@ -228,7 +228,7 @@ public class BasicConfigInfo implements MetadataManager
             {
                 for (Mission defaultMission : defaultFor)
                 {
-                    if (defaultMission == SbmtMultiMissionTool.getMission())
+                    if (defaultMission == edu.jhuapl.sbmt.client2.SbmtMultiMissionTool.getMission())
                     {
                         SmallBodyViewConfig.setDefaultModelName(uniqueName);
                         break;
