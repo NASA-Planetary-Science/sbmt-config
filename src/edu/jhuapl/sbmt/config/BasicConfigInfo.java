@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 import edu.jhuapl.saavtk.model.ShapeModelBody;
 import edu.jhuapl.saavtk.model.ShapeModelType;
-import edu.jhuapl.sbmt.client2.SbmtMultiMissionTool;
 import edu.jhuapl.sbmt.common.client.BodyViewConfig;
 import edu.jhuapl.sbmt.common.client.Mission;
 import edu.jhuapl.sbmt.common.client.SmallBodyViewConfig;
@@ -33,7 +32,7 @@ public class BasicConfigInfo implements MetadataManager
 
     public static String getConfigPathPrefix(boolean publishedDataOnly)
     {
-        return (publishedDataOnly ? "published/" : "proprietary/") + "allBodies-" + configInfoVersion + "-redmine-1215";
+        return (publishedDataOnly ? "published/" : "proprietary/") + "allBodies-" + configInfoVersion;
     }
 
     private static final Mission[] EmptyMissionArray = new Mission[0];
@@ -41,7 +40,7 @@ public class BasicConfigInfo implements MetadataManager
     ShapeModelPopulation population;
     ShapeModelBody system;
 	String shapeModelName;
-	String uniqueName; 
+	String uniqueName;
 	ShapeModelType author;
 	BodyType type;
 	ShapeModelBody body;
