@@ -2,6 +2,7 @@ package edu.jhuapl.sbmt.config;
 
 import java.util.Arrays;
 
+import edu.jhuapl.saavtk.model.DefaultModelIdentifier;
 import edu.jhuapl.saavtk.model.ShapeModelBody;
 import edu.jhuapl.saavtk.model.ShapeModelType;
 import edu.jhuapl.sbmt.common.client.BodyViewConfig;
@@ -83,13 +84,13 @@ public class BasicConfigInfo implements MetadataManager
 				else
 					enabled = false;
 			}
-            if (SmallBodyViewConfig.getDefaultModelName() == null)
+            if (DefaultModelIdentifier.getClientDefaultModel() == null)
             {
                 for (Mission defaultMission : defaultFor)
                 {
                     if (defaultMission == edu.jhuapl.sbmt.client2.SbmtMultiMissionTool.getMission())
                     {
-                        SmallBodyViewConfig.setDefaultModelName(uniqueName);
+                        DefaultModelIdentifier.setClientDefaultModel(uniqueName);
                         break;
                     }
                 }
@@ -223,13 +224,13 @@ public class BasicConfigInfo implements MetadataManager
 				else
 					enabled = false;
 			}
-            if (SmallBodyViewConfig.getDefaultModelName() == null)
+            if (DefaultModelIdentifier.getClientDefaultModel() == null)
             {
                 for (Mission defaultMission : defaultFor)
                 {
                     if (defaultMission == edu.jhuapl.sbmt.client2.SbmtMultiMissionTool.getMission())
                     {
-                        SmallBodyViewConfig.setDefaultModelName(uniqueName);
+                        DefaultModelIdentifier.setClientDefaultModel(uniqueName);
                         break;
                     }
                 }
