@@ -33,7 +33,7 @@ public class BasicConfigInfo implements MetadataManager
 
     public static String getConfigPathPrefix(boolean publishedDataOnly)
     {
-        return (publishedDataOnly ? "published/" : "proprietary/") + "allBodies-" + configInfoVersion;
+        return (publishedDataOnly ? "published/" : "proprietary/") + "allBodies-" + configInfoVersion + "-2471";
     }
 
     private static final Mission[] EmptyMissionArray = new Mission[0];
