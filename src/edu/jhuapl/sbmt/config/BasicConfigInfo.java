@@ -22,7 +22,7 @@ public class BasicConfigInfo implements MetadataManager
     //      pipeline->rawdata->generic->runDataProcessing.sh
     // TO MATCH!!!!!!!!!!!!!!!!!!!
     // *******************************************************************************
-    private static final String configInfoVersion = "9.3"; // READ THE COMMENT ABOVE.
+    private static final String configInfoVersion = "9.4"; // READ THE COMMENT ABOVE.
     // *******************************************************************************
 
     public static String getConfigInfoVersion()
@@ -32,7 +32,7 @@ public class BasicConfigInfo implements MetadataManager
 
     public static String getConfigPathPrefix(boolean publishedDataOnly)
     {
-        return (publishedDataOnly ? "published/" : "proprietary/") + "allBodies-" + configInfoVersion + "-2471";
+        return (publishedDataOnly ? "published/" : "proprietary/") + "allBodies-" + configInfoVersion /*+ "-2471"*/;
     }
 
     private static final Mission[] EmptyMissionArray = new Mission[0];
