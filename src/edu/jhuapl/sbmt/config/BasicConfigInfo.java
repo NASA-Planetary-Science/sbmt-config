@@ -45,7 +45,7 @@ public class BasicConfigInfo implements MetadataManager
 	ShapeModelType author;
 	BodyType type;
 	ShapeModelBody body;
-	ShapeModelDataUsed dataUsed;
+	ShapeModelDataUsed dataUsed; 
 	private String configURL;
 	String version;
 	String modelLabel;
