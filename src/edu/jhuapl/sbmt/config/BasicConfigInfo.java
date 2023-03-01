@@ -33,7 +33,7 @@ public class BasicConfigInfo implements MetadataManager
 
     public static String getConfigPathPrefix(boolean publishedDataOnly)
     {
-        return (publishedDataOnly ? "published/" : "proprietary/") + "allBodies-" + configInfoVersion;
+        return (publishedDataOnly ? "published/" : "proprietary/") + "allBodies-" + configInfoVersion + "-2523";
     }
 
     private static final Mission[] EmptyMissionArray = new Mission[0];
@@ -45,7 +45,7 @@ public class BasicConfigInfo implements MetadataManager
 	ShapeModelType author;
 	BodyType type;
 	ShapeModelBody body;
-	ShapeModelDataUsed dataUsed; 
+	ShapeModelDataUsed dataUsed;
 	private String configURL;
 	String version;
 	String modelLabel;
@@ -114,13 +114,13 @@ public class BasicConfigInfo implements MetadataManager
             	bodyName = bodyName.replaceAll("\\(", "_");
             	bodyName = bodyName.replaceAll("\\)", "_");
             	String centerNameReplacement = "-system_" + bodyName.toLowerCase() + "_center/";
-            	String systemRoot = ((SmallBodyViewConfig) config).rootDirOnServer.substring(1).replaceFirst("/", centerNameReplacement);
+            	String systemRoot = ((SmallBodyViewConfig) config).rootDirOnServer.substring(1); //.replaceFirst("/", centerNameReplacement);
             	systemRoot = systemRoot.replaceAll("\\(", "_");
             	systemRoot = systemRoot.replaceAll("\\)", "");
             	this.configURL = "/" + getConfigPathPrefix(publishedDataOnly) + "/" + systemRoot + //
-	                "/" + config.author + "_" + //
-	                bodyName + modelVersion + "_System_" + bodyName.toLowerCase() + "center" + //
-	                "_v" + getConfigInfoVersion() + ".json";
+	                "/" + config.author /*+ "_" + //
+	                bodyName + modelVersion + "_System_" + bodyName.toLowerCase() + "center" + // */
+	                + "_v" + getConfigInfoVersion() + ".json";
             	this.configURL = this.configURL.replaceAll("\\(", "");
             	this.configURL = this.configURL.replaceAll("\\)", "");
             }
