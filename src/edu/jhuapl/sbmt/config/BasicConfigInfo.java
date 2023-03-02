@@ -109,18 +109,13 @@ public class BasicConfigInfo implements MetadataManager
                     "_v" + getConfigInfoVersion() + ".json";
             else
             {
-            	String bodyName = config.getBody().toString();
-            	bodyName = bodyName.replaceAll(" ", "_");
-            	bodyName = bodyName.replaceAll("\\(", "_");
-            	bodyName = bodyName.replaceAll("\\)", "_");
-            	String centerNameReplacement = "-system_" + bodyName.toLowerCase() + "_center/";
-            	String systemRoot = ((SmallBodyViewConfig) config).rootDirOnServer.substring(1); //.replaceFirst("/", centerNameReplacement);
-            	systemRoot = systemRoot.replaceAll("\\(", "_");
-            	systemRoot = systemRoot.replaceAll("\\)", "");
-            	this.configURL = "/" + getConfigPathPrefix(publishedDataOnly) + "/" + systemRoot + //
-	                "/" + config.author /*+ "_" + //
-	                bodyName + modelVersion + "_System_" + bodyName.toLowerCase() + "center" + // */
-	                + "_v" + getConfigInfoVersion() + ".json";
+            	String systemRoot = "/" + config.getBody().name().replaceAll("[\\s-_]+", "-").toLowerCase() + "/" + config.getAuthor().name().replaceAll("[\\s-_]+", "-").toLowerCase();
+                systemRoot = systemRoot.replaceAll("\\(", "");
+                systemRoot = systemRoot.replaceAll("\\)", "");
+                systemRoot = systemRoot.replaceAll("-\\w*-center", "");
+
+            	this.configURL = "/" + getConfigPathPrefix(publishedDataOnly) + systemRoot + //
+	                "/" + config.author + "_v" + getConfigInfoVersion() + ".json";
             	this.configURL = this.configURL.replaceAll("\\(", "");
             	this.configURL = this.configURL.replaceAll("\\)", "");
             }
