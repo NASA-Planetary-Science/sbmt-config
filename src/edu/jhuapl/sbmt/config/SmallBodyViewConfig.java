@@ -2,15 +2,13 @@ package edu.jhuapl.sbmt.config;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.beust.jcommander.internal.Lists;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 import edu.jhuapl.saavtk.config.ConfigArrayList;
 import edu.jhuapl.saavtk.config.IBodyViewConfig;
@@ -20,22 +18,9 @@ import edu.jhuapl.saavtk.model.ShapeModelType;
 import edu.jhuapl.saavtk.util.Configuration;
 import edu.jhuapl.saavtk.util.FileCache;
 import edu.jhuapl.saavtk.util.SafeURLPaths;
-import edu.jhuapl.sbmt.client2.SbmtMultiMissionTool;
-import edu.jhuapl.sbmt.client2.configs.AsteroidConfigs;
-import edu.jhuapl.sbmt.client2.configs.BennuConfigs;
-import edu.jhuapl.sbmt.client2.configs.CometConfigs;
-import edu.jhuapl.sbmt.client2.configs.DartConfigs;
-import edu.jhuapl.sbmt.client2.configs.MarsConfigs;
-import edu.jhuapl.sbmt.client2.configs.NewHorizonsConfigs;
-import edu.jhuapl.sbmt.client2.configs.RyuguConfigs;
-import edu.jhuapl.sbmt.client2.configs.SaturnConfigs;
 import edu.jhuapl.sbmt.core.body.BodyViewConfig;
 import edu.jhuapl.sbmt.core.client.Mission;
 import edu.jhuapl.sbmt.core.config.ISmallBodyViewConfig;
-import edu.jhuapl.sbmt.core.config.Instrument;
-import edu.jhuapl.sbmt.core.search.HierarchicalSearchSpecification;
-import edu.jhuapl.sbmt.image.interfaces.ImageKeyInterface;
-import edu.jhuapl.sbmt.spectrum.model.core.search.SpectraHierarchicalSearchSpecification;
 
 import crucible.crust.metadata.api.Key;
 import crucible.crust.metadata.impl.FixedMetadata;
@@ -172,7 +157,7 @@ public class SmallBodyViewConfig extends BodyViewConfig implements ISmallBodyVie
     	ConfigArrayList<ViewConfig> configs = new ConfigArrayList<>();
         try
         {
-            File allBodies = FileCache.getFileFromServer(BasicConfigInfo.getConfigPathPrefix(SbmtMultiMissionTool.getMission().isPublishedDataOnly()) + "/" + "allBodies_v" + BasicConfigInfo.getConfigInfoVersion() + ".json");
+            File allBodies = FileCache.getFileFromServer(BasicConfigInfo.getConfigPathPrefix(Mission.getMission().isPublishedDataOnly()) + "/" + "allBodies_v" + BasicConfigInfo.getConfigInfoVersion() + ".json");
             FixedMetadata metadata = Serializers.deserialize(allBodies, "AllBodies");
             for (Key<?> key : metadata.getKeys())
             {
@@ -249,17 +234,26 @@ public class SmallBodyViewConfig extends BodyViewConfig implements ISmallBodyVie
         return config;
     }
 
+//    static void initializeWithStaticConfigs(boolean publicOnly, SmallBodyViewConfig... configs)
+//    {
+//    	ConfigArrayList<IBodyViewConfig> configArray = getBuiltInConfigs();
+//    	for (IBodyViewConfig config : configs)
+//    	{
+//    		config.initialize(configArray);
+//    	}
+//    }
+
     static void initializeWithStaticConfigs(boolean publicOnly)
     {
     	ConfigArrayList<IBodyViewConfig> configArray = getBuiltInConfigs();
-		AsteroidConfigs.initialize(configArray);
-		BennuConfigs.initialize(configArray, publicOnly);
-		DartConfigs.instance().initialize(configArray);
-		CometConfigs.initialize(configArray);
-		MarsConfigs.initialize(configArray, publicOnly);
-		NewHorizonsConfigs.initialize(configArray);
-		RyuguConfigs.initialize(configArray);
-		SaturnConfigs.initialize(configArray);
+//		AsteroidConfigs.initialize(configArray);
+//		BennuConfigs.initialize(configArray, publicOnly);
+//		DartConfigs.instance().initialize(configArray);
+//		CometConfigs.initialize(configArray);
+//		MarsConfigs.initialize(configArray, publicOnly);
+//		NewHorizonsConfigs.initialize(configArray);
+//		RyuguConfigs.initialize(configArray);
+//		SaturnConfigs.initialize(configArray);
     }
 
 
@@ -270,14 +264,14 @@ public class SmallBodyViewConfig extends BodyViewConfig implements ISmallBodyVie
         configArray.addAll(addRemoteEntries());
     }
 
-    private List<ImageKeyInterface> imageMapKeys = null;
+//    private List<ImageKeyInterface> imageMapKeys = null;
 
     public SmallBodyViewConfig(Iterable<String> resolutionLabels, Iterable<Integer> resolutionNumberElements)
     {
         super(resolutionLabels, resolutionNumberElements);
     }
 
-    SmallBodyViewConfig()
+    public SmallBodyViewConfig()
     {
         super(ImmutableList.<String>copyOf(DEFAULT_GASKELL_LABELS_PER_RESOLUTION), ImmutableList.<Integer>copyOf(DEFAULT_GASKELL_NUMBER_PLATES_PER_RESOLUTION));
     }
@@ -294,189 +288,6 @@ public class SmallBodyViewConfig extends BodyViewConfig implements ISmallBodyVie
     {
         return FileCache.instance().isAccessible(getShapeModelFileNames()[0]);
     }
-
-    @Override
-    public Instrument getLidarInstrument()
-    {
-        return lidarInstrumentName;
-    }
-
-    public boolean hasHypertreeLidarSearch()
-    {
-        return hasHypertreeBasedLidarSearch;
-    }
-
-    public SpectraHierarchicalSearchSpecification<?> getHierarchicalSpectraSearchSpecification()
-    {
-        return hierarchicalSpectraSearchSpecification;
-    }
-
-//    @Deprecated
-//    @Override
-//    public List<ImageKeyInterface> getImageMapKeys()
-//    {
-//        if (!hasImageMap)
-//        {
-//            return ImmutableList.of();
-//        }
-//
-//            if (imageMapKeys == null)
-//            {
-//                List<ImageKeyInterface> imageMapKeys = ImmutableList.of();
-//
-//                // Newest/best way to specify maps is with metadata, if this model has it.
-//                String metadataFileName = SafeURLPaths.instance().getString(serverPath("basemap"), baseMapConfigName);
-//                File metadataFile;
-//                try
-//                {
-//                    metadataFile = FileCache.getFileFromServer(metadataFileName);
-//                }
-//                catch (Exception ignored)
-//                {
-//                    // This file is optional.
-//                    metadataFile = null;
-//                    return ImmutableList.of();
-//                }
-//
-//                if (metadataFile != null && metadataFile.isFile())
-//                {
-//                    // Proceed using metadata.
-//                    try
-//                    {
-//                        Metadata metadata = Serializers.deserialize(metadataFile, "CustomImages");
-//                        imageMapKeys = metadata.get(Key.of("customImages"));
-//                    }
-//                    catch (Exception e)
-//                    {
-//                        // This ought to have worked so report this exception.
-//                        e.printStackTrace();
-//                    }
-//                }
-//                else
-//                {
-//                // Final option (legacy behavior). The key is hardwired. The file could be in
-//                // either of two places.
-//                    if (FileCache.isFileGettable(serverPath("image_map.png")))
-//                    {
-//                        imageMapKeys = ImmutableList.of(new CustomCylindricalImageKey("image_map", "image_map.png", ImageType.GENERIC_IMAGE, PointingSource.IMAGE_MAP, new Date(), "image_map"));
-//                    }
-//                    else if (FileCache.isFileGettable(serverPath("basemap/image_map.png")))
-//                    {
-//                        imageMapKeys = ImmutableList.of(new CustomCylindricalImageKey("image_map", "basemap/image_map.png", ImageType.GENERIC_IMAGE, PointingSource.IMAGE_MAP, new Date(), "image_map"));
-//                    }
-//                }
-//
-//                this.imageMapKeys = correctMapKeys(imageMapKeys, metadataFile.getParent());
-//            }
-//
-//        return imageMapKeys;
-//    }
-
-//    @Override
-//    public List<BasemapImage> getBasemapImages()
-//    {
-//    	List<BasemapImage> basemapImages = Lists.newArrayList();
-//    	String metadataFileName = SafeURLPaths.instance().getString(serverPath("basemap"), baseMapConfigNamev2);
-//    	File metadataFile;
-//        try
-//        {
-//            metadataFile = FileCache.getFileFromServer(metadataFileName);
-//            FixedMetadata readInMetadata = Serializers.deserialize(metadataFile, "Basemaps");
-//    		basemapImages = readInMetadata.get(Key.of("basemapCollection"));
-//    		for (BasemapImage image : basemapImages)
-//    		{
-//    			image.setPointingFileName(SafeURLPaths.instance().getString(serverPath("basemap"), image.getPointingFileName()));
-//    			image.setImageFilename(SafeURLPaths.instance().getString(serverPath("basemap"), image.getImageFilename()));
-//    		}
-//        }
-//        catch (Exception ignored)
-//        {
-//            return ImmutableList.of();
-//        }
-//
-//		return basemapImages;
-//    }
-
-//    /**
-//     * This converts keys with short names, file names, and original names to
-//     * full-fledged keys that image creators can handle. The short form is more
-//     * convenient and idiomatic for storage and for configuration purposes, but the
-//     * longer form can actually be used to create a cylindrical image object.
-//     *
-//     * If/when image key classes are revamped, the shorter form would actually be
-//     * preferable. The name is actually supposed to be the display name, and the
-//     * original name is most likely intended to hold the "original file name" in
-//     * cases where a file is imported into the custom area.
-//     *
-//     * @param keys the input (shorter) keys
-//     * @return the output (full-fledged) keys
-//     */
-//    private List<ImageKeyInterface> correctMapKeys(List<ImageKeyInterface> keys, String metadataDir)
-//    {
-//        ImmutableList.Builder<ImageKeyInterface> builder = ImmutableList.builder();
-//        for (ImageKeyInterface k : keys)
-//        {
-//        	if (k instanceof CustomCylindricalImageKey)
-//        	{
-//        		CustomCylindricalImageKey key = (CustomCylindricalImageKey)k;
-//	            String fileName = serverPath(key.getImageFilename());
-//
-//	            CustomCylindricalImageKey correctedKey = new CustomCylindricalImageKey(fileName, fileName, ImageType.GENERIC_IMAGE, PointingSource.IMAGE_MAP, new Date(), key.getOriginalName());
-//
-//	            correctedKey.setLllat(key.getLllat());
-//	            correctedKey.setLllon(key.getLllon());
-//	            correctedKey.setUrlat(key.getUrlat());
-//	            correctedKey.setUrlon(key.getUrlon());
-//
-//	            builder.add(correctedKey);
-//	        }
-//        	else
-//        	{
-//        		CustomPerspectiveImageKey key = (CustomPerspectiveImageKey)k;
-//        		String imageFileName = SafeURLPaths.instance().getString(serverPath("basemap"), key.getImageFilename());
-//        		String infoFileName = SafeURLPaths.instance().getString(serverPath("basemap"), key.getPointingFile());
-//        		FileCache.getFileFromServer(imageFileName);
-//        		FileCache.getFileFromServer(infoFileName);
-//        		String fileName = SafeURLPaths.instance().getUrl(metadataDir + File.separator + key.getImageFilename());
-//        		CustomPerspectiveImageKey correctedKey = new CustomPerspectiveImageKey(fileName, fileName, key.getSource(), key.getImageType(), key.getRotation(), key.getFlip(), key.getFileType(), infoFileName,
-//        				key.getDate(), key.getOriginalName());
-//
-//        		builder.add(correctedKey);
-//        	}
-//        }
-//
-//        return builder.build();
-//    }
-
-	@Override
-	public boolean hasHypertreeBasedSpectraSearch()
-	{
-		return hasHypertreeBasedSpectraSearch;
-	}
-
-	@Override
-	public boolean hasHierarchicalSpectraSearch()
-	{
-		return hasHierarchicalSpectraSearch;
-	}
-
-	@Override
-	public Date getDefaultImageSearchStartDate()
-	{
-		return imageSearchDefaultStartDate;
-	}
-
-	@Override
-	public Date getDefaultImageSearchEndDate()
-	{
-		return imageSearchDefaultEndDate;
-	}
-
-	@Override
-	public HierarchicalSearchSpecification getHierarchicalImageSearchSpecification()
-	{
-		return hierarchicalImageSearchSpecification;
-	}
 
 	@Override
 	public String getTimeHistoryFile()
@@ -512,7 +323,7 @@ public class SmallBodyViewConfig extends BodyViewConfig implements ISmallBodyVie
 	{
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((imageMapKeys == null) ? 0 : imageMapKeys.hashCode());
+//		result = prime * result + ((imageMapKeys == null) ? 0 : imageMapKeys.hashCode());
 		return result;
 	}
 
@@ -527,78 +338,91 @@ public class SmallBodyViewConfig extends BodyViewConfig implements ISmallBodyVie
 		{
 			return false;
 		}
-//		if (getClass() != obj.getClass())
+////		if (getClass() != obj.getClass())
+////		{
+////			System.out.println("SmallBodyViewConfig: equals: classes are wrong " + getClass() + " " + obj.getClass());
+////			return false;
+////		}
+//		SmallBodyViewConfig other = (SmallBodyViewConfig) obj;
+//		if (imageMapKeys == null)
 //		{
-//			System.out.println("SmallBodyViewConfig: equals: classes are wrong " + getClass() + " " + obj.getClass());
+//			if (other.imageMapKeys != null)
+//			{
+//				return false;
+//			}
+//		} else if (!imageMapKeys.equals(other.imageMapKeys))
+//		{
 //			return false;
 //		}
-		SmallBodyViewConfig other = (SmallBodyViewConfig) obj;
-		if (imageMapKeys == null)
-		{
-			if (other.imageMapKeys != null)
-			{
-				return false;
-			}
-		} else if (!imageMapKeys.equals(other.imageMapKeys))
-		{
-			return false;
-		}
 
 //		System.out.println("SmallBodyViewConfig: equals: match, returning true!!!!");
 		return true;
 	}
 
 	@Override
-	public String toString()
+	public double getDensity()
 	{
-		return "SmallBodyViewConfig [imageMapKeys=" + imageMapKeys + ", rootDirOnServer=" + rootDirOnServer
-				+ ", shapeModelFileBaseName=" + shapeModelFileBaseName + ", shapeModelFileExtension="
-				+ shapeModelFileExtension + ", shapeModelFileNames=" + Arrays.toString(shapeModelFileNames)
-				+ ", timeHistoryFile=" + timeHistoryFile + ", density=" + density + ", rotationRate=" + rotationRate
-				+ ", hasFlybyData=" + hasFlybyData + ", hasStateHistory=" + hasStateHistory + ", hasColoringData="
-				+ hasColoringData + ", hasMapmaker=" + hasMapmaker
-				+ ", hasRemoteMapmaker=" + hasRemoteMapmaker + ", bodyReferencePotential=" + bodyReferencePotential + ", bodyLowestResModelName="
-				+ bodyLowestResModelName + ", hasBigmap=" + hasBigmap + ", hasSpectralData=" + hasSpectralData
-				+ ", hasLineamentData=" + hasLineamentData + ", imageSearchDefaultStartDate="
-				+ imageSearchDefaultStartDate + ", imageSearchDefaultEndDate=" + imageSearchDefaultEndDate
-				+ ", imageSearchFilterNames=" + Arrays.toString(imageSearchFilterNames)
-				+ ", imageSearchUserDefinedCheckBoxesNames=" + Arrays.toString(imageSearchUserDefinedCheckBoxesNames)
-				+ ", imageSearchDefaultMaxSpacecraftDistance=" + imageSearchDefaultMaxSpacecraftDistance
-				+ ", imageSearchDefaultMaxResolution=" + imageSearchDefaultMaxResolution
-				+ ", hasHierarchicalImageSearch=" + hasHierarchicalImageSearch + ", hasHierarchicalSpectraSearch="
-				+ hasHierarchicalSpectraSearch + ", hierarchicalImageSearchSpecification="
-				+ hierarchicalImageSearchSpecification + ", hierarchicalSpectraSearchSpecification="
-				+ hierarchicalSpectraSearchSpecification + ", spectrumMetadataFile=" + spectrumMetadataFile
-				+ ", hasHypertreeBasedSpectraSearch=" + hasHypertreeBasedSpectraSearch + ", spectraSearchDataSourceMap="
-				+ spectraSearchDataSourceMap + ", hasHypertreeBasedLidarSearch=" + hasHypertreeBasedLidarSearch
-				+ ", lidarSearchDataSourceMap=" + lidarSearchDataSourceMap + ", lidarBrowseDataSourceMap="
-				+ lidarBrowseDataSourceMap + ", lidarSearchDataSourceTimeMap=" + lidarSearchDataSourceTimeMap
-				+ ", orexSearchTimeMap=" + orexSearchTimeMap + ", lidarBrowseOrigPathRegex=" + lidarBrowseOrigPathRegex
-				+ ", lidarBrowsePathTop=" + lidarBrowsePathTop + ", lidarBrowseXYZIndices="
-				+ Arrays.toString(lidarBrowseXYZIndices) + ", lidarBrowseSpacecraftIndices="
-				+ Arrays.toString(lidarBrowseSpacecraftIndices) + ", lidarBrowseOutgoingIntensityIndex="
-				+ lidarBrowseOutgoingIntensityIndex + ", lidarBrowseReceivedIntensityIndex="
-				+ lidarBrowseReceivedIntensityIndex + ", lidarBrowseRangeIndex=" + lidarBrowseRangeIndex
-				+ ", lidarBrowseIsRangeExplicitInData=" + lidarBrowseIsRangeExplicitInData
-				+ ", lidarBrowseIntensityEnabled=" + lidarBrowseIntensityEnabled
-				+ ", lidarBrowseIsLidarInSphericalCoordinates=" + lidarBrowseIsLidarInSphericalCoordinates
-				+ ", lidarBrowseIsSpacecraftInSphericalCoordinates=" + lidarBrowseIsSpacecraftInSphericalCoordinates
-				+ ", lidarBrowseIsTimeInET=" + lidarBrowseIsTimeInET + ", lidarBrowseTimeIndex=" + lidarBrowseTimeIndex
-				+ ", lidarBrowseNoiseIndex=" + lidarBrowseNoiseIndex + ", lidarBrowseFileListResourcePath="
-				+ lidarBrowseFileListResourcePath + ", lidarBrowseNumberHeaderLines=" + lidarBrowseNumberHeaderLines
-				+ ", lidarBrowseIsBinary=" + lidarBrowseIsBinary + ", lidarBrowseBinaryRecordSize="
-				+ lidarBrowseBinaryRecordSize + ", lidarBrowseIsInMeters=" + lidarBrowseIsInMeters
-				+ ", lidarOffsetScale=" + lidarOffsetScale + ", hasLidarData=" + hasLidarData
-				+ ", lidarSearchDefaultStartDate=" + lidarSearchDefaultStartDate + ", lidarSearchDefaultEndDate="
-				+ lidarSearchDefaultEndDate + ", presentInMissions=" + Arrays.toString(presentInMissions)
-				+ ", defaultForMissions=" + Arrays.toString(defaultForMissions) + ", dtmBrowseDataSourceMap="
-				+ dtmBrowseDataSourceMap + ", dtmSearchDataSourceMap=" + dtmSearchDataSourceMap + ", type=" + type
-				+ ", population=" + population + ", system=" + system + ", dataUsed=" + dataUsed + ", imagingInstruments="
-				+ Arrays.toString(imagingInstruments) + ", lidarInstrumentName=" + lidarInstrumentName
-				+ ", spectralInstruments=" + spectralInstruments + ", databaseRunInfos="
-				+ Arrays.toString(databaseRunInfos) + ", modelLabel=" + modelLabel + ", customTemporary="
-				+ customTemporary + ", author=" + author + ", version=" + version + ", body=" + body
-				+ ", useMinimumReferencePotential=" + useMinimumReferencePotential + ", hasCustomBodyCubeSize="
-				+ hasCustomBodyCubeSize + ", customBodyCubeSize=" + customBodyCubeSize + "]";
+		return density;
 	}
+
+	@Override
+	public double getRotationRate()
+	{
+		// TODO Auto-generated method stub
+		return rotationRate;
+	}
+
+//	@Override
+//	public String toString()
+//	{
+//		return "SmallBodyViewConfig [imageMapKeys=" + imageMapKeys + ", rootDirOnServer=" + rootDirOnServer
+//				+ ", shapeModelFileBaseName=" + shapeModelFileBaseName + ", shapeModelFileExtension="
+//				+ shapeModelFileExtension + ", shapeModelFileNames=" + Arrays.toString(shapeModelFileNames)
+//				+ ", timeHistoryFile=" + timeHistoryFile + ", density=" + density + ", rotationRate=" + rotationRate
+//				+ ", hasFlybyData=" + hasFlybyData + ", hasStateHistory=" + hasStateHistory + ", hasColoringData="
+//				+ hasColoringData + ", hasMapmaker=" + hasMapmaker
+//				+ ", hasRemoteMapmaker=" + hasRemoteMapmaker + ", bodyReferencePotential=" + bodyReferencePotential + ", bodyLowestResModelName="
+//				+ bodyLowestResModelName + ", hasBigmap=" + hasBigmap + ", hasSpectralData=" + hasSpectralData
+//				+ ", hasLineamentData=" + hasLineamentData + ", imageSearchDefaultStartDate="
+//				+ imageSearchDefaultStartDate + ", imageSearchDefaultEndDate=" + imageSearchDefaultEndDate
+//				+ ", imageSearchFilterNames=" + Arrays.toString(imageSearchFilterNames)
+//				+ ", imageSearchUserDefinedCheckBoxesNames=" + Arrays.toString(imageSearchUserDefinedCheckBoxesNames)
+//				+ ", imageSearchDefaultMaxSpacecraftDistance=" + imageSearchDefaultMaxSpacecraftDistance
+//				+ ", imageSearchDefaultMaxResolution=" + imageSearchDefaultMaxResolution
+//				+ ", hasHierarchicalImageSearch=" + hasHierarchicalImageSearch + ", hasHierarchicalSpectraSearch="
+//				+ hasHierarchicalSpectraSearch + ", hierarchicalImageSearchSpecification="
+//				+ hierarchicalImageSearchSpecification + ", hierarchicalSpectraSearchSpecification="
+//				+ hierarchicalSpectraSearchSpecification + ", spectrumMetadataFile=" + spectrumMetadataFile
+//				+ ", hasHypertreeBasedSpectraSearch=" + hasHypertreeBasedSpectraSearch + ", spectraSearchDataSourceMap="
+//				+ spectraSearchDataSourceMap + ", hasHypertreeBasedLidarSearch=" + hasHypertreeBasedLidarSearch
+//				+ ", lidarSearchDataSourceMap=" + lidarSearchDataSourceMap + ", lidarBrowseDataSourceMap="
+//				+ lidarBrowseDataSourceMap + ", lidarSearchDataSourceTimeMap=" + lidarSearchDataSourceTimeMap
+//				+ ", orexSearchTimeMap=" + orexSearchTimeMap + ", lidarBrowseOrigPathRegex=" + lidarBrowseOrigPathRegex
+//				+ ", lidarBrowsePathTop=" + lidarBrowsePathTop + ", lidarBrowseXYZIndices="
+//				+ Arrays.toString(lidarBrowseXYZIndices) + ", lidarBrowseSpacecraftIndices="
+//				+ Arrays.toString(lidarBrowseSpacecraftIndices) + ", lidarBrowseOutgoingIntensityIndex="
+//				+ lidarBrowseOutgoingIntensityIndex + ", lidarBrowseReceivedIntensityIndex="
+//				+ lidarBrowseReceivedIntensityIndex + ", lidarBrowseRangeIndex=" + lidarBrowseRangeIndex
+//				+ ", lidarBrowseIsRangeExplicitInData=" + lidarBrowseIsRangeExplicitInData
+//				+ ", lidarBrowseIntensityEnabled=" + lidarBrowseIntensityEnabled
+//				+ ", lidarBrowseIsLidarInSphericalCoordinates=" + lidarBrowseIsLidarInSphericalCoordinates
+//				+ ", lidarBrowseIsSpacecraftInSphericalCoordinates=" + lidarBrowseIsSpacecraftInSphericalCoordinates
+//				+ ", lidarBrowseIsTimeInET=" + lidarBrowseIsTimeInET + ", lidarBrowseTimeIndex=" + lidarBrowseTimeIndex
+//				+ ", lidarBrowseNoiseIndex=" + lidarBrowseNoiseIndex + ", lidarBrowseFileListResourcePath="
+//				+ lidarBrowseFileListResourcePath + ", lidarBrowseNumberHeaderLines=" + lidarBrowseNumberHeaderLines
+//				+ ", lidarBrowseIsBinary=" + lidarBrowseIsBinary + ", lidarBrowseBinaryRecordSize="
+//				+ lidarBrowseBinaryRecordSize + ", lidarBrowseIsInMeters=" + lidarBrowseIsInMeters
+//				+ ", lidarOffsetScale=" + lidarOffsetScale + ", hasLidarData=" + hasLidarData
+//				+ ", lidarSearchDefaultStartDate=" + lidarSearchDefaultStartDate + ", lidarSearchDefaultEndDate="
+//				+ lidarSearchDefaultEndDate + ", presentInMissions=" + Arrays.toString(presentInMissions)
+//				+ ", defaultForMissions=" + Arrays.toString(defaultForMissions) + ", dtmBrowseDataSourceMap="
+//				+ dtmBrowseDataSourceMap + ", dtmSearchDataSourceMap=" + dtmSearchDataSourceMap + ", type=" + type
+//				+ ", population=" + population + ", system=" + system + ", dataUsed=" + dataUsed + ", imagingInstruments="
+//				+ Arrays.toString(imagingInstruments) + ", lidarInstrumentName=" + lidarInstrumentName
+//				+ ", spectralInstruments=" + spectralInstruments + ", databaseRunInfos="
+//				+ Arrays.toString(databaseRunInfos) + ", modelLabel=" + modelLabel + ", customTemporary="
+//				+ customTemporary + ", author=" + author + ", version=" + version + ", body=" + body
+//				+ ", useMinimumReferencePotential=" + useMinimumReferencePotential + ", hasCustomBodyCubeSize="
+//				+ hasCustomBodyCubeSize + ", customBodyCubeSize=" + customBodyCubeSize + "]";
+//	}
 }

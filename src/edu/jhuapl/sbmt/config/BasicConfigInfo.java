@@ -25,7 +25,7 @@ public class BasicConfigInfo implements MetadataManager
     //      pipeline->rawdata->generic->runDataProcessing.sh
     // TO MATCH!!!!!!!!!!!!!!!!!!!
     // *******************************************************************************
-    private static final String configInfoVersion = "9.5"; // READ THE COMMENT ABOVE.
+    private static final String configInfoVersion = "9.6"; // READ THE COMMENT ABOVE.
     // *******************************************************************************
 
     public static String getConfigInfoVersion()
@@ -35,7 +35,7 @@ public class BasicConfigInfo implements MetadataManager
 
     public static String getConfigPathPrefix(boolean publishedDataOnly)
     {
-        return (publishedDataOnly ? "published/" : "proprietary/") + "allBodies-" + configInfoVersion;
+        return (publishedDataOnly ? "published/" : "proprietary/") + "allBodies-" + configInfoVersion + "-reorg";
     }
 
     private static final Mission[] EmptyMissionArray = new Mission[0];
@@ -78,7 +78,7 @@ public class BasicConfigInfo implements MetadataManager
 			for (Mission presentMission : presentInVersion)
 			{
 				//allow the body if the "present in Mission" value equals the tool's preset mission value OR if the tool's present mission value is the apl internal nightly
-				if ((presentMission == edu.jhuapl.sbmt.client2.SbmtMultiMissionTool.getMission()) || (edu.jhuapl.sbmt.client2.SbmtMultiMissionTool.getMission() == Mission.APL_INTERNAL_NIGHTLY))
+				if ((presentMission == Mission.getMission()) || (Mission.getMission() == Mission.APL_INTERNAL_NIGHTLY))
 				{
 					enabled = true;
 					break;
@@ -90,7 +90,7 @@ public class BasicConfigInfo implements MetadataManager
             {
                 for (Mission defaultMission : defaultFor)
                 {
-                    if (defaultMission == edu.jhuapl.sbmt.client2.SbmtMultiMissionTool.getMission())
+                    if (defaultMission == Mission.getMission())
                     {
                         DefaultModelIdentifier.setClientDefaultModel(uniqueName);
                         break;
@@ -105,7 +105,7 @@ public class BasicConfigInfo implements MetadataManager
             String modelVersion = config.version != null ? config.version.replaceAll(" ", "_") : "";
 
             if (!config.hasSystemBodies())
-            	this.configURL = "/" + getConfigPathPrefix(publishedDataOnly) + ((SmallBodyViewConfig) config).rootDirOnServer + //
+            	this.configURL = "/" + getConfigPathPrefix(publishedDataOnly) + config.getRootDirOnServer() + //
                     "/" + config.author + "_" + //
                     config.body.toString().replaceAll(" ", "_") + modelVersion + //
                     "_v" + getConfigInfoVersion() + ".json";
@@ -213,7 +213,7 @@ public class BasicConfigInfo implements MetadataManager
 		{
 			for (Mission presentMission : presentInVersion)
 			{
-				if ((presentMission == edu.jhuapl.sbmt.client2.SbmtMultiMissionTool.getMission()) || (edu.jhuapl.sbmt.client2.SbmtMultiMissionTool.getMission() == Mission.APL_INTERNAL_NIGHTLY))
+				if ((presentMission == Mission.getMission()) || (Mission.getMission() == Mission.APL_INTERNAL_NIGHTLY))
 				{
 					enabled = true;
 					break;
@@ -225,7 +225,7 @@ public class BasicConfigInfo implements MetadataManager
             {
                 for (Mission defaultMission : defaultFor)
                 {
-                    if (defaultMission == edu.jhuapl.sbmt.client2.SbmtMultiMissionTool.getMission())
+                    if (defaultMission == Mission.getMission())
                     {
                         DefaultModelIdentifier.setClientDefaultModel(uniqueName);
                         break;
