@@ -212,13 +212,7 @@ public class SmallBodyViewConfigMetadataIO implements MetadataManager
 
 
         //dtm
-//      	write(hasDTM, c.hasDTMs, configMetadata);
-        if (c.dtmBrowseDataSourceMap.size() > 0 )
-        	write(dtmBrowseDataSourceMap, c.dtmBrowseDataSourceMap, configMetadata);
-        if (c.dtmSearchDataSourceMap.size() > 0 )
-        	write(dtmSearchDataSourceMap, c.dtmSearchDataSourceMap, configMetadata);
-        write(hasBigmap, c.hasBigmap, configMetadata);
-
+      	write(hasDTM, c.hasDTMs, configMetadata);
 
         int i;
         if (c.defaultForMissions != null)
@@ -380,11 +374,8 @@ public class SmallBodyViewConfigMetadataIO implements MetadataManager
         c.hasMapmaker = read(hasMapmaker, configMetadata);
         c.hasLineamentData = read(hasLineamentData, configMetadata);
 
-
-        if (configMetadata.hasKey(dtmSearchDataSourceMap))
-        	c.dtmSearchDataSourceMap = read(dtmSearchDataSourceMap, configMetadata);
-        if (configMetadata.hasKey(dtmBrowseDataSourceMap))
-        	c.dtmBrowseDataSourceMap = read(dtmBrowseDataSourceMap, configMetadata);
+        if (configMetadata.hasKey(hasDTM))
+        	c.hasDTMs = read(hasDTM, configMetadata);
         c.hasBigmap = read(hasBigmap, configMetadata);
 
 
@@ -511,8 +502,6 @@ public class SmallBodyViewConfigMetadataIO implements MetadataManager
     final Key<Boolean> hasColoringData = Key.of("hasColoringData");
 
     //DTM
-    final Key<Map> dtmSearchDataSourceMap = Key.of("dtmSearchDataSourceMap");
-    final Key<Map> dtmBrowseDataSourceMap = Key.of("dtmBrowseDataSourceMap");
     final Key<Boolean> hasBigmap = Key.of("hasBigmap");
     final Key<Boolean> hasDTM = Key.of("hasDTM");
 

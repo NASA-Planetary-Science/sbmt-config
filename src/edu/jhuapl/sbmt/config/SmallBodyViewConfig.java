@@ -415,8 +415,7 @@ public class SmallBodyViewConfig extends BodyViewConfig implements ISmallBodyVie
 //				+ ", lidarOffsetScale=" + lidarOffsetScale + ", hasLidarData=" + hasLidarData
 //				+ ", lidarSearchDefaultStartDate=" + lidarSearchDefaultStartDate + ", lidarSearchDefaultEndDate="
 //				+ lidarSearchDefaultEndDate + ", presentInMissions=" + Arrays.toString(presentInMissions)
-//				+ ", defaultForMissions=" + Arrays.toString(defaultForMissions) + ", dtmBrowseDataSourceMap="
-//				+ dtmBrowseDataSourceMap + ", dtmSearchDataSourceMap=" + dtmSearchDataSourceMap + ", type=" + type
+//				+ ", defaultForMissions=" + Arrays.toString(defaultForMissions) + ", type=" + type
 //				+ ", population=" + population + ", system=" + system + ", dataUsed=" + dataUsed + ", imagingInstruments="
 //				+ Arrays.toString(imagingInstruments) + ", lidarInstrumentName=" + lidarInstrumentName
 //				+ ", spectralInstruments=" + spectralInstruments + ", databaseRunInfos="
