@@ -376,7 +376,8 @@ public class SmallBodyViewConfigMetadataIO implements MetadataManager
 
         if (configMetadata.hasKey(hasDTM))
         	c.hasDTMs = read(hasDTM, configMetadata);
-        c.hasBigmap = read(hasBigmap, configMetadata);
+        if (configMetadata.hasKey(hasBigmap))
+        	c.hasBigmap = read(hasBigmap, configMetadata);
 
 
         String[] presentInMissionStrings = read(presentInMissions, configMetadata);
