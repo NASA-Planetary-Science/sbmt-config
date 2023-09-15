@@ -376,8 +376,6 @@ public class SmallBodyViewConfigMetadataIO implements MetadataManager
 
         if (configMetadata.hasKey(hasDTM))
         	c.hasDTMs = read(hasDTM, configMetadata);
-        if (configMetadata.hasKey(hasBigmap))
-        	c.hasBigmap = read(hasBigmap, configMetadata);
 
 
         String[] presentInMissionStrings = read(presentInMissions, configMetadata);
@@ -503,7 +501,6 @@ public class SmallBodyViewConfigMetadataIO implements MetadataManager
     final Key<Boolean> hasColoringData = Key.of("hasColoringData");
 
     //DTM
-    final Key<Boolean> hasBigmap = Key.of("hasBigmap");
     final Key<Boolean> hasDTM = Key.of("hasDTM");
 
     final Key<Boolean> hasMapmaker = Key.of("hasMapmaker");
