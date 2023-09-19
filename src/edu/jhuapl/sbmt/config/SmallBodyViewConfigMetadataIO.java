@@ -211,7 +211,7 @@ public class SmallBodyViewConfigMetadataIO implements MetadataManager
 
 
 
-        //dtm
+        //dtm 
       	write(hasDTM, c.hasDTMs, configMetadata);
 
         int i;
