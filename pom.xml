@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.jhuapl.ses.srn.sbmt</groupId>
   <artifactId>sbmt-config</artifactId>
-  <version>1.0.4-b1-debug-SNAPSHOT</version>
+  <version>1.0.4-b1-SNAPSHOT</version>
   <name>sbmt-config</name>
   <description>SBMT Config library</description>
   <packaging>jar</packaging>
