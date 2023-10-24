@@ -158,6 +158,7 @@ public class SmallBodyViewConfig extends BodyViewConfig implements ISmallBodyVie
         try
         {
             File allBodies = FileCache.getFileFromServer(BasicConfigInfo.getConfigPathPrefix(Mission.getMission().isPublishedDataOnly()) + "/" + "allBodies_v" + BasicConfigInfo.getConfigInfoVersion() + ".json");
+            System.out.println("SmallBodyViewConfig: addRemoteEntries: all bodies " + allBodies.getAbsolutePath());
             FixedMetadata metadata = Serializers.deserialize(allBodies, "AllBodies");
             for (Key<?> key : metadata.getKeys())
             {
@@ -166,6 +167,7 @@ public class SmallBodyViewConfig extends BodyViewConfig implements ISmallBodyVie
             	BasicConfigInfo configInfo = new BasicConfigInfo();
             	configInfo.retrieve(infoMetadata);
             	CONFIG_INFO.add(configInfo);
+            	System.out.println("SmallBodyViewConfig: addRemoteEntries: adding " + key.toString());
             	VIEWCONFIG_IDENTIFIERS.put(key.toString(), configInfo);
             	if (configInfo.getUniqueName().equals("Gaskell/433 Eros"))
             	{
