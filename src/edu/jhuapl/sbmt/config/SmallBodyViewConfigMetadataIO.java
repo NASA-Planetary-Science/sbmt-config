@@ -195,7 +195,7 @@ public class SmallBodyViewConfigMetadataIO implements MetadataManager
         write(platesPerRes, c.getResolutionNumberElements().toArray(platesPerResToSave), configMetadata);
         write(timeHistoryFile, c.timeHistoryFile, configMetadata);
         write(hasStateHistory, c.hasStateHistory, configMetadata);
-        write(baseMapConfig, c.baseMapConfigName, configMetadata);
+        write(baseMapConfig, c.getBaseMapConfigName(), configMetadata);
 
         write(density, c.density, configMetadata);
         write(rotationRate, c.rotationRate, configMetadata);
@@ -361,7 +361,7 @@ public class SmallBodyViewConfigMetadataIO implements MetadataManager
         c.timeHistoryFile = read(timeHistoryFile, configMetadata);
         c.hasStateHistory = read(hasStateHistory, configMetadata);
 
-        c.baseMapConfigName = read(baseMapConfig, configMetadata);
+        c.setBaseMapConfigName(read(baseMapConfig, configMetadata));
 
         c.density = read(density, configMetadata);
         c.rotationRate = read(rotationRate, configMetadata);

@@ -372,6 +372,16 @@ public class SmallBodyViewConfig extends BodyViewConfig implements ISmallBodyVie
 		return rotationRate;
 	}
 
+	public String getBaseMapConfigName()
+	{
+		return baseMapConfigName;
+	}
+
+	public void setBaseMapConfigName(String baseMapConfigName)
+	{
+		this.baseMapConfigName = baseMapConfigName;
+	}
+
 //	@Override
 //	public String toString()
 //	{
