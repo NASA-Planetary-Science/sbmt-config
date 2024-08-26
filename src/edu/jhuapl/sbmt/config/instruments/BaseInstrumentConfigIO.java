@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
-import crucible.crust.metadata.api.Key;
-import crucible.crust.metadata.api.Metadata;
-import crucible.crust.metadata.api.MetadataManager;
-import crucible.crust.metadata.impl.SettableMetadata;
-import crucible.crust.metadata.impl.gson.Serializers;
+import edu.jhuapl.ses.jsqrl.api.Key;
+import edu.jhuapl.ses.jsqrl.api.Metadata;
+import edu.jhuapl.ses.jsqrl.api.MetadataManager;
+import edu.jhuapl.ses.jsqrl.impl.SettableMetadata;
+import edu.jhuapl.ses.jsqrl.impl.gson.Serializers;
 
 public abstract class BaseInstrumentConfigIO
 {

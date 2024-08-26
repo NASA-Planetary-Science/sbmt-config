@@ -11,11 +11,11 @@ import edu.jhuapl.sbmt.core.body.ShapeModelDataUsed;
 import edu.jhuapl.sbmt.core.body.ShapeModelPopulation;
 import edu.jhuapl.sbmt.core.client.Mission;
 
-import crucible.crust.metadata.api.Key;
-import crucible.crust.metadata.api.Metadata;
-import crucible.crust.metadata.api.MetadataManager;
-import crucible.crust.metadata.api.Version;
-import crucible.crust.metadata.impl.SettableMetadata;
+import edu.jhuapl.ses.jsqrl.api.Key;
+import edu.jhuapl.ses.jsqrl.api.Metadata;
+import edu.jhuapl.ses.jsqrl.api.MetadataManager;
+import edu.jhuapl.ses.jsqrl.api.Version;
+import edu.jhuapl.ses.jsqrl.impl.SettableMetadata;
 
 public class BasicConfigInfo implements MetadataManager
 {

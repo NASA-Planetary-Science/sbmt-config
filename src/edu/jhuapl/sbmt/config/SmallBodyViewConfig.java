@@ -22,10 +22,10 @@ import edu.jhuapl.sbmt.core.body.BodyViewConfig;
 import edu.jhuapl.sbmt.core.client.Mission;
 import edu.jhuapl.sbmt.core.config.ISmallBodyViewConfig;
 
-import crucible.crust.metadata.api.Key;
-import crucible.crust.metadata.impl.FixedMetadata;
-import crucible.crust.metadata.impl.SettableMetadata;
-import crucible.crust.metadata.impl.gson.Serializers;
+import edu.jhuapl.ses.jsqrl.api.Key;
+import edu.jhuapl.ses.jsqrl.impl.FixedMetadata;
+import edu.jhuapl.ses.jsqrl.impl.SettableMetadata;
+import edu.jhuapl.ses.jsqrl.impl.gson.Serializers;
 
 /**
 * A SmallBodyConfig is a class for storing all which models should be instantiated
