@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.jhuapl.ses.srn.sbmt</groupId>
   <artifactId>sbmt-config</artifactId>
-  <version>1.0.8</version>
+  <version>1.0.9</version>
   <name>sbmt-config</name>
   <description>SBMT Config library</description>
   <packaging>jar</packaging>
@@ -41,7 +41,7 @@
 	<dependency>
 		<groupId>edu.jhuapl.ses.srn.sbmt</groupId>
 		<artifactId>sbmt-core</artifactId>
-		<version>1.1.3</version> 
+		<version>1.1.4-b1-SNAPSHOT</version> 
 	</dependency>
   </dependencies>
   <build>
