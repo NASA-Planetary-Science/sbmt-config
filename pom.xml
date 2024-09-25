@@ -9,7 +9,7 @@
     <description>SBMT Config library</description>
     <packaging>jar</packaging>
 
-    <parent>
+    <parent> 
         <groupId>edu.jhuapl.ses.sbmt</groupId>
         <artifactId>sbmt-overview</artifactId>
         <version>0.0.1-SNAPSHOT</version>
