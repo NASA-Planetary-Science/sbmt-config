@@ -245,7 +245,7 @@ public class SmallBodyViewConfig extends BodyViewConfig implements ISmallBodyVie
 
     static void initializeWithStaticConfigs(boolean publicOnly)
     {
-    	ConfigArrayList<IBodyViewConfig> configArray = getBuiltInConfigs();
+//    	ConfigArrayList<IBodyViewConfig> configArray = getBuiltInConfigs();
 //		AsteroidConfigs.initialize(configArray);
 //		BennuConfigs.initialize(configArray, publicOnly);
 //		DartConfigs.instance().initialize(configArray);
@@ -321,7 +321,7 @@ public class SmallBodyViewConfig extends BodyViewConfig implements ISmallBodyVie
 	@Override
 	public int hashCode()
 	{
-		final int prime = 31;
+//		final int prime = 31;
 		int result = super.hashCode();
 //		result = prime * result + ((imageMapKeys == null) ? 0 : imageMapKeys.hashCode());
 		return result;
