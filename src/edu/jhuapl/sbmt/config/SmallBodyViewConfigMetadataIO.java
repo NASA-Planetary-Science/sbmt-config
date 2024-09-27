@@ -243,7 +243,7 @@ public class SmallBodyViewConfigMetadataIO implements MetadataManager
         write(systemBodyConfigs, systemConfigUniqueNames, configMetadata);
 
         Map<String, Metadata> featureMap = Maps.newHashMap();
-        for (Class configClass : c.getFeatureConfigs().keySet())
+        for (Class<?> configClass : c.getFeatureConfigs().keySet())
         {
         	List<IFeatureConfig> featureConfig = c.getFeatureConfigs().get(configClass);
         	Metadata metadata = FeatureConfigIOFactory.getMetadataForFeatureConfig(configClass.getSimpleName(), featureConfig.get(0));
@@ -283,7 +283,7 @@ public class SmallBodyViewConfigMetadataIO implements MetadataManager
         }
     }
 
-    private <T> void writeEnum(Key<String> key, Enum value, SettableMetadata configMetadata)
+    private <T> void writeEnum(Key<String> key, Enum<?> value, SettableMetadata configMetadata)
     {
         if (value != null)
         {
@@ -292,7 +292,8 @@ public class SmallBodyViewConfigMetadataIO implements MetadataManager
     }
 
 
-    private <T> void writeDate(Key<Long> key, Date value, SettableMetadata configMetadata)
+    @SuppressWarnings("unused")
+	private <T> void writeDate(Key<Long> key, Date value, SettableMetadata configMetadata)
     {
         if (value != null)
         {
@@ -444,7 +445,8 @@ public class SmallBodyViewConfigMetadataIO implements MetadataManager
         }
 
 
-        Map<String, Metadata> featureConfigMetadata = read(featureConfigs, configMetadata);
+        @SuppressWarnings("unchecked")
+		Map<String, Metadata> featureConfigMetadata = read(featureConfigs, configMetadata);
         for (String configClassName : featureConfigMetadata.keySet())
         {
         	IFeatureConfig config = FeatureConfigIOFactory.getFeatureConfigForMetadata(configClassName, featureConfigMetadata.get(configClassName));
@@ -508,7 +510,8 @@ public class SmallBodyViewConfigMetadataIO implements MetadataManager
 
     final Key<Metadata[]> runInfos = Key.of("runInfos");
 
-    final Key<Map> featureConfigs = Key.of("featureConfigs");
+    @SuppressWarnings("rawtypes")
+	final Key<Map> featureConfigs = Key.of("featureConfigs");
 
     final Key<Boolean> systemBodies = Key.of("systemBodies");
     final Key<List<String>> systemBodyConfigs = Key.of("systemBodyConfigs");
